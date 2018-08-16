@@ -9,16 +9,21 @@ public class rocket : MonoBehaviour {
     Rigidbody rigidBody;
     [SerializeField] int multirotate = 50;
     [SerializeField] int multithrust = 50;
+
     AudioSource audiosorce;
     [SerializeField] AudioClip engine;
     [SerializeField] AudioClip death;
     [SerializeField] AudioClip leavelcomplete;
+
     enum State {alive,dead,levelchange};
     State state;
+    [SerializeField] ParticleSystem flame;
+    [SerializeField] ParticleSystem explode;
+    [SerializeField] ParticleSystem win;
 
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
         rigidBody = GetComponent<Rigidbody>();
         audiosorce = GetComponent<AudioSource>();
         state = State.alive;
@@ -60,6 +65,7 @@ public class rocket : MonoBehaviour {
         if (Input.GetKey(KeyCode.Space))
         {
             rigidBody.AddRelativeForce(Vector3.up * multithrust);
+            flame.Play();
 
             if(!audiosorce.isPlaying)
             {
@@ -70,6 +76,7 @@ public class rocket : MonoBehaviour {
 
         else
         {
+            flame.Stop();
             audiosorce.Stop();
         }
     }
@@ -88,12 +95,14 @@ public class rocket : MonoBehaviour {
             case "Finish":
                 state = State.levelchange;
                 audiosorce.Stop();
+                win.Play();
                 audiosorce.PlayOneShot(leavelcomplete);
                 Invoke("LoadNextLevel",2f);
                 break;
             default:
                 state = State.dead;
                 audiosorce.Stop();
+                explode.Play();
                 audiosorce.PlayOneShot(death);
                 Invoke("LoadSameLevel",2f);
                 break;
