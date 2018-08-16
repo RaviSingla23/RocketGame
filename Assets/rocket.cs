@@ -2,17 +2,26 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class rocket : MonoBehaviour {
 
     Rigidbody rigidBody;
     [SerializeField] int multirotate = 50;
     [SerializeField] int multithrust = 50;
-    AudioSource rthrust;
+    AudioSource audiosorce;
+    [SerializeField] AudioClip engine;
+    [SerializeField] AudioClip death;
+    [SerializeField] AudioClip leavelcomplete;
+    enum State {alive,dead,levelchange};
+    State state;
+
+
 	// Use this for initialization
 	void Start () {
         rigidBody = GetComponent<Rigidbody>();
-        rthrust = GetComponent<AudioSource>();
+        audiosorce = GetComponent<AudioSource>();
+        state = State.alive;
 	}
 	
 	// Update is called once per frame
@@ -22,9 +31,11 @@ public class rocket : MonoBehaviour {
 
     private void processInput()
     {
-        thrust();
-        rotate();
-
+        if(state==State.alive)
+        {
+            thrust();
+            rotate();
+        }
     }
 
     private void rotate()
@@ -50,16 +61,53 @@ public class rocket : MonoBehaviour {
         {
             rigidBody.AddRelativeForce(Vector3.up * multithrust);
 
-            if(!rthrust.isPlaying)
+            if(!audiosorce.isPlaying)
             {
-                rthrust.Play();
+                audiosorce.PlayOneShot(engine);
             }
 
         }
 
         else
         {
-            rthrust.Stop();
+            audiosorce.Stop();
         }
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(state!=State.alive)
+        {
+            return;
+        }
+        switch(collision.gameObject.tag)
+        {
+            case "friendly":
+                break;
+
+            case "Finish":
+                state = State.levelchange;
+                audiosorce.Stop();
+                audiosorce.PlayOneShot(leavelcomplete);
+                Invoke("LoadNextLevel",2f);
+                break;
+            default:
+                state = State.dead;
+                audiosorce.Stop();
+                audiosorce.PlayOneShot(death);
+                Invoke("LoadSameLevel",2f);
+                break;
+
+        }
+    }
+
+    private void LoadSameLevel()
+    {
+        SceneManager.LoadScene(0);
+    }
+
+    private void LoadNextLevel()
+    {
+        SceneManager.LoadScene(1);
     }
 }
