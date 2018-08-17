@@ -4,7 +4,7 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class oscillator : MonoBehaviour {
     [SerializeField] Vector3 movementvector;
-    [Range(-1, 1)] [SerializeField] float movementFactor;
+    float movementFactor;
     Vector3 startpos;
     [SerializeField]float period=1;
     float cycles;
@@ -17,6 +17,10 @@ public class oscillator : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+        if(period<=Mathf.Epsilon)
+        {
+            return;
+        }
         cycles = Time.time / period;
         movementFactor = Mathf.Sin(x*cycles);
         offset = movementFactor * movementvector;

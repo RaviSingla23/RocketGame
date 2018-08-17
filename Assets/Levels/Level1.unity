@@ -279,7 +279,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   movementvector: {x: 13, y: 0, z: 0}
   movementFactor: 0
-  period: 2
+  period: 4
 --- !u!1 &534669902
 GameObject:
   m_ObjectHideFlags: 0
