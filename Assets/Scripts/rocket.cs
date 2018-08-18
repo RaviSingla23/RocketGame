@@ -21,7 +21,7 @@ public class rocket : MonoBehaviour {
     [SerializeField] ParticleSystem explode;
     [SerializeField] ParticleSystem win;
     int level;
-    int finalLevel = 2;
+    int finalLevel = 3;
 
 
     // Use this for initialization
