@@ -21,7 +21,7 @@ public class rocket : MonoBehaviour {
     [SerializeField] ParticleSystem explode;
     [SerializeField] ParticleSystem win;
     int level;
-    int finalLevel = 3;
+    int finalLevel;
 
 
     // Use this for initialization
@@ -30,7 +30,8 @@ public class rocket : MonoBehaviour {
         audiosorce = GetComponent<AudioSource>();
         state = State.alive;
         level = SceneManager.GetActiveScene().buildIndex;
-	}
+        finalLevel = SceneManager.sceneCountInBuildSettings-1;
+    }
 	
 	// Update is called once per frame
 	void Update () {
