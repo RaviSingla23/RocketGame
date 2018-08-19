@@ -49,7 +49,7 @@ public class rocket : MonoBehaviour {
 
     private void rotate()
     {
-        rigidBody.freezeRotation = true;
+        
 
         if (Input.GetKey(KeyCode.RightArrow))
         {
@@ -61,7 +61,7 @@ public class rocket : MonoBehaviour {
             transform.Rotate(Vector3.forward * Time.deltaTime * multirotate);
         }
 
-        rigidBody.freezeRotation = false;
+        
     }
 
     private void thrust()
