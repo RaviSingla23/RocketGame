@@ -22,6 +22,9 @@ public class rocket : MonoBehaviour {
     [SerializeField] ParticleSystem win;
     int level;
     int finalLevel;
+    bool thrustenable = false;
+    bool rotate_right = false;
+    bool rotate_left = false;
 
 
     // Use this for initialization
@@ -35,28 +38,48 @@ public class rocket : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-        processInput();
+        process_input();
 	}
 
-    private void processInput()
+    private void process_input()
     {
-        if(state==State.alive)
+        if (state ==State.alive)
         {
             thrust();
             rotate();
         }
     }
 
+    public void enable_right_rotation()
+    {
+        rotate_right = true;
+    }
+
+    public void disable_right_rotation()
+    {
+        rotate_right = false;
+    }
+
+    public void enable_left_rotation()
+    {
+        rotate_left = true;
+    }
+
+    public void disable_leftt_rotation()
+    {
+        rotate_left = false;
+    }
+
     private void rotate()
     {
         
 
-        if (Input.GetKey(KeyCode.RightArrow))
+        if (rotate_right)
         {
             transform.Rotate(-Vector3.forward * Time.deltaTime * multirotate);
         }
 
-        else if (Input.GetKey(KeyCode.LeftArrow))
+        else if (rotate_left)
         {
             transform.Rotate(Vector3.forward * Time.deltaTime * multirotate);
         }
@@ -64,9 +87,19 @@ public class rocket : MonoBehaviour {
         
     }
 
+    public void enable_thrust()
+    {
+        thrustenable = true;
+    }
+
+    public void disable_thrust()
+    {
+        thrustenable = false;
+    }
+
     private void thrust()
     {
-        if (Input.GetKey(KeyCode.Space))
+        if (thrustenable)
         {
             rigidBody.AddRelativeForce(Vector3.up * multithrust);
             flame.Play();
