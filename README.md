@@ -7,12 +7,12 @@ Unity 2019 or later
 Android Build support for unity
 
 
-## Demo
-<a href="https://github.com/RaviSingla23/RocketGame/blob/master/Screenshots/Screenshot%20(24).png"/></a>
+## Screenshots
+<img src="https://github.com/RaviSingla23/RocketGame/blob/master/Screenshots/Screenshot%20(24).png">
 
-<a href="https://github.com/RaviSingla23/RocketGame/blob/master/Screenshots/Screenshot%20(27).png"/></a>
+<img src="https://github.com/RaviSingla23/RocketGame/blob/master/Screenshots/Screenshot%20(27).png">
 
-<a href="https://github.com/RaviSingla23/RocketGame/blob/master/Screenshots/Screenshot%20(25).png"/></a>
+<img src="https://github.com/RaviSingla23/RocketGame/blob/master/Screenshots/Screenshot%20(25).png">
 
 ## Build and Run on a Android Phone
 An android device with android 4.4 or later is required to play the game.
